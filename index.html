@@ -7,6 +7,81 @@
     .mode-select {
   margin: 5px 0;
 }
+  .theme-select {
+  margin: 5px 0;
+}
+
+.theme-select button {
+  margin: 3px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* ========================= */
+/* DEFAULT THEME (Comic) */
+/* ========================= */
+
+body.theme-comic {
+  background: #ffe066;
+}
+
+body.theme-comic h1 {
+  color: #e63946;
+  text-shadow: 2px 2px 0 #1d3557;
+}
+
+body.theme-comic .bubble {
+  background: radial-gradient(circle at 30% 30%, #4ea8de, #1d3557);
+}
+
+body.theme-comic .bubble.popped {
+  background: radial-gradient(circle at 70% 70%, #90e0ef, #4ea8de);
+}
+
+/* ========================= */
+/* JUNGLE THEME */
+/* ========================= */
+
+body.theme-jungle {
+  background: #d8f3dc;
+}
+
+body.theme-jungle h1 {
+  color: #2d6a4f;
+  text-shadow: 2px 2px 0 #1b4332;
+}
+
+body.theme-jungle .bubble {
+  background: radial-gradient(circle at 30% 30%, #40916c, #1b4332);
+}
+
+body.theme-jungle .bubble.popped {
+  background: radial-gradient(circle at 70% 70%, #95d5b2, #40916c);
+}
+
+/* ========================= */
+/* BUBBLE POP THEME */
+/* ========================= */
+
+body.theme-bubble {
+  background: #ffd6c0; /* soft peach */
+}
+
+body.theme-bubble h1 {
+  color: #4361ee;
+  text-shadow: 2px 2px 0 #3a0ca3;
+}
+
+body.theme-bubble .bubble {
+  background: radial-gradient(circle at 30% 30%, #ff8fab, #ff4fa3);
+}
+
+body.theme-bubble .bubble.popped {
+  background: radial-gradient(circle at 70% 70%, #ffc2d1, #ff8fab);
+}
 .new-record {
   color: #ff1493;
   font-weight: bold;
@@ -96,9 +171,14 @@ button:hover {
 }
   </style>
 </head>
-<body>
+<body class="theme-comic">
 
 <h1>POP-IT!</h1>
+  <div class="theme-select">
+  <button id="themeJungle">🌴 Jungle</button>
+  <button id="themeComic">🦸 Comic</button>
+  <button id="themeBubble">🌸 Bubble Pop</button>
+</div>
 <div class="mode-select">
   <button id="relaxedMode">Relaxed Mode</button>
   <button id="timedMode">Timed Mode</button>
@@ -118,6 +198,9 @@ const timedBtn = document.getElementById("timedMode");
 const timerDisplay = document.getElementById("timerDisplay");
 const statusText = document.getElementById("statusText");
 const bestTimeDisplay = document.getElementById("bestTimeDisplay");
+const themeJungle = document.getElementById("themeJungle");
+const themeComic = document.getElementById("themeComic");
+const themeBubble = document.getElementById("themeBubble");
 
 let mode = null;
 let timer = null;
@@ -209,7 +292,17 @@ function resetGame() {
   clearInterval(timer);
   timerStarted = false;
 }
+themeJungle.addEventListener("click", function() {
+  document.body.className = "theme-jungle";
+});
 
+themeComic.addEventListener("click", function() {
+  document.body.className = "theme-comic";
+});
+
+themeBubble.addEventListener("click", function() {
+  document.body.className = "theme-bubble";
+});
 resetBtn.addEventListener("click", function () {
   resetGame();
   statusText.textContent = "Board reset. Choose a mode 🎮";
