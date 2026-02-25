@@ -4,6 +4,15 @@
   <title>POP-IT! | Free Stress Relief Game</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    .mode-select {
+  margin: 20px 0;
+}
+
+#timerDisplay {
+  font-size: 20px;
+  margin-top: 10px;
+  font-weight: bold;
+}
     button {
   margin-top: 20px;
   padding: 10px 20px;
@@ -74,29 +83,98 @@ button:hover {
 <body>
 
 <h1>POP-IT!</h1>
-<p>Click the bubbles to pop them 🎉</p>
+<div class="mode-select">
+  <button id="relaxedMode">Relaxed Mode</button>
+  <button id="timedMode">Timed Mode</button>
+</div>
+
+<p id="statusText">Choose a mode to begin 🎮</p>
+<p id="timerDisplay"></p>
 <button id="resetBtn">Reset Board</button>
 <div class="grid" id="grid"></div>
 
 <script>
-  const grid = document.getElementById("grid");
-  const resetBtn = document.getElementById("resetBtn");
+const grid = document.getElementById("grid");
+const resetBtn = document.getElementById("resetBtn");
+const relaxedBtn = document.getElementById("relaxedMode");
+const timedBtn = document.getElementById("timedMode");
+const timerDisplay = document.getElementById("timerDisplay");
+const statusText = document.getElementById("statusText");
 
-  for (let i = 0; i < 64; i++) {
-    const bubble = document.createElement("div");
-    bubble.classList.add("bubble");
+let mode = null;
+let timer = null;
+let startTime = null;
+let poppedCount = 0;
+let timerStarted = false;
 
-    bubble.addEventListener("click", function () {
-      bubble.classList.toggle("popped");
-    });
+// Create bubbles
+for (let i = 0; i < 64; i++) {
+  const bubble = document.createElement("div");
+  bubble.classList.add("bubble");
 
-    grid.appendChild(bubble);
-  }
-  resetBtn.addEventListener("click", function () {
+  bubble.addEventListener("click", function () {
+    if (!bubble.classList.contains("popped")) {
+      bubble.classList.add("popped");
+      poppedCount++;
+
+      if (mode === "timed" && !timerStarted) {
+        startTimer();
+      }
+
+      if (mode === "timed" && poppedCount === 64) {
+        stopTimer();
+      }
+    }
+  });
+
+  grid.appendChild(bubble);
+}
+
+relaxedBtn.addEventListener("click", function () {
+  mode = "relaxed";
+  resetGame();
+  statusText.textContent = "Relaxed mode 😌 Pop at your pace!";
+  timerDisplay.textContent = "";
+});
+
+timedBtn.addEventListener("click", function () {
+  mode = "timed";
+  resetGame();
+  statusText.textContent = "Timed mode ⏱ Pop them all!";
+  timerDisplay.textContent = "Time: 0.00s";
+});
+
+function startTimer() {
+  timerStarted = true;
+  startTime = Date.now();
+  timer = setInterval(function () {
+    const elapsed = (Date.now() - startTime) / 1000;
+    timerDisplay.textContent = "Time: " + elapsed.toFixed(2) + "s";
+  }, 10);
+}
+
+function stopTimer() {
+  clearInterval(timer);
+  const finalTime = ((Date.now() - startTime) / 1000).toFixed(2);
+  statusText.textContent = "🎉 Finished in " + finalTime + " seconds!";
+  timerStarted = false;
+}
+
+function resetGame() {
   const bubbles = document.querySelectorAll(".bubble");
   bubbles.forEach(function (bubble) {
     bubble.classList.remove("popped");
   });
+
+  poppedCount = 0;
+  clearInterval(timer);
+  timerStarted = false;
+}
+
+resetBtn.addEventListener("click", function () {
+  resetGame();
+  statusText.textContent = "Board reset. Choose a mode 🎮";
+  timerDisplay.textContent = "";
 });
 </script>
 
