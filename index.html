@@ -4,6 +4,21 @@
   <title>POP-IT! | Free Stress Relief Game</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  background-color: #ff4fa3;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background-color: #e13c8d;
+}
     body {
       text-align: center;
       font-family: Arial, sans-serif;
@@ -60,11 +75,12 @@
 
 <h1>POP-IT!</h1>
 <p>Click the bubbles to pop them 🎉</p>
-
+<button id="resetBtn">Reset Board</button>
 <div class="grid" id="grid"></div>
 
 <script>
   const grid = document.getElementById("grid");
+  const resetBtn = document.getElementById("resetBtn");
 
   for (let i = 0; i < 64; i++) {
     const bubble = document.createElement("div");
@@ -76,6 +92,12 @@
 
     grid.appendChild(bubble);
   }
+  resetBtn.addEventListener("click", function () {
+  const bubbles = document.querySelectorAll(".bubble");
+  bubbles.forEach(function (bubble) {
+    bubble.classList.remove("popped");
+  });
+});
 </script>
 
 </body>
