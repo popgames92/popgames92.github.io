@@ -7,6 +7,17 @@
     .mode-select {
   margin: 20px 0;
 }
+.new-record {
+  color: #ff1493;
+  font-weight: bold;
+  animation: flash 0.6s ease-in-out 3;
+}
+
+@keyframes flash {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
 #bestTimeDisplay {
   font-size: 18px;
   margin-top: 5px;
@@ -168,13 +179,22 @@ function stopTimer() {
   clearInterval(timer);
   const finalTime = ((Date.now() - startTime) / 1000).toFixed(2);
 
-  statusText.textContent = "🎉 Finished in " + finalTime + " seconds!";
   timerStarted = false;
 
   if (!bestTime || parseFloat(finalTime) < parseFloat(bestTime)) {
     bestTime = finalTime;
     localStorage.setItem("bestTime", bestTime);
     bestTimeDisplay.textContent = "🏆 Best Time: " + bestTime + "s";
+
+    statusText.textContent = "🎉 NEW RECORD! " + finalTime + "s!";
+    statusText.classList.add("new-record");
+
+    setTimeout(function () {
+      statusText.classList.remove("new-record");
+    }, 1800);
+
+  } else {
+    statusText.textContent = "Finished in " + finalTime + " seconds!";
   }
 }
 
