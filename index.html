@@ -7,7 +7,11 @@
     .mode-select {
   margin: 20px 0;
 }
-
+#bestTimeDisplay {
+  font-size: 18px;
+  margin-top: 5px;
+  color: #444;
+}
 #timerDisplay {
   font-size: 20px;
   margin-top: 10px;
@@ -90,6 +94,7 @@ button:hover {
 
 <p id="statusText">Choose a mode to begin 🎮</p>
 <p id="timerDisplay"></p>
+  <p id="bestTimeDisplay"></p>
 <button id="resetBtn">Reset Board</button>
 <div class="grid" id="grid"></div>
 
@@ -100,12 +105,18 @@ const relaxedBtn = document.getElementById("relaxedMode");
 const timedBtn = document.getElementById("timedMode");
 const timerDisplay = document.getElementById("timerDisplay");
 const statusText = document.getElementById("statusText");
+const bestTimeDisplay = document.getElementById("bestTimeDisplay");
 
 let mode = null;
 let timer = null;
 let startTime = null;
 let poppedCount = 0;
 let timerStarted = false;
+let bestTime = localStorage.getItem("bestTime");
+
+if (bestTime) {
+  bestTimeDisplay.textContent = "🏆 Best Time: " + bestTime + "s";
+}
 
 // Create bubbles
 for (let i = 0; i < 64; i++) {
@@ -156,8 +167,15 @@ function startTimer() {
 function stopTimer() {
   clearInterval(timer);
   const finalTime = ((Date.now() - startTime) / 1000).toFixed(2);
+
   statusText.textContent = "🎉 Finished in " + finalTime + " seconds!";
   timerStarted = false;
+
+  if (!bestTime || parseFloat(finalTime) < parseFloat(bestTime)) {
+    bestTime = finalTime;
+    localStorage.setItem("bestTime", bestTime);
+    bestTimeDisplay.textContent = "🏆 Best Time: " + bestTime + "s";
+  }
 }
 
 function resetGame() {
@@ -175,6 +193,7 @@ resetBtn.addEventListener("click", function () {
   resetGame();
   statusText.textContent = "Board reset. Choose a mode 🎮";
   timerDisplay.textContent = "";
+  bestTimeDisplay.textContent = bestTime ? "🏆 Best Time: " + bestTime + "s" : "";
 });
 </script>
 
