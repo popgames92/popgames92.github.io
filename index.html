@@ -4,10 +4,67 @@
   <title>POP-IT! | Free Stress Relief Game</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    .mode-select {
-  margin: 5px 0;
+
+/* ========================= */
+/* GLOBAL STYLES */
+/* ========================= */
+body {
+  text-align: center;
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  margin: 5px;
+  overflow-x: hidden;
 }
-  button {
+
+h1 {
+  font-size: 44px;
+  margin: 2px 0;
+  letter-spacing: 2px;
+}
+
+/* ========================= */
+/* TIMER / BEST TIME DISPLAY */
+/* ========================= */
+#timerDisplay {
+  font-size: 18px;
+  margin: 3px 0;
+  font-weight: bold;
+  min-height: 22px; /* prevents layout shift */
+}
+
+#bestTimeDisplay {
+  font-size: 16px;
+  margin: 3px 0;
+}
+
+/* ========================= */
+/* GRID AND BUBBLES */
+/* ========================= */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(8, 52px);
+  gap: 6px;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.bubble {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.15s;
+  box-shadow: inset -4px -6px 10px rgba(0,0,0,0.25),
+              inset 4px 6px 10px rgba(255,255,255,0.4);
+}
+
+.bubble.popped {
+  transform: scale(0.9);
+}
+
+/* ========================= */
+/* BUTTONS (ALL THEMES) */
+/* ========================= */
+button {
   padding: 8px 18px;
   border-radius: 20px;
   border: none;
@@ -16,11 +73,10 @@
   cursor: pointer;
   transition: all 0.2s ease;
   color: white;
-}
-button {
   -webkit-appearance: none;
   appearance: none;
 }
+
 button:hover {
   transform: translateY(-2px);
   opacity: 0.9;
@@ -29,173 +85,97 @@ button:hover {
 button:active {
   transform: translateY(1px);
 }
-  .theme-select {
-  margin: 5px 0;
-}
 
-.theme-select button {
-  margin: 3px;
-  padding: 6px 14px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
+/* ========================= */
+/* ACTIVE THEME BUTTON HIGHLIGHT */
+/* ========================= */
+.theme-active {
+  box-shadow: 0 0 8px rgba(0,0,0,0.5);
 }
 
 /* ========================= */
-/* DEFAULT THEME (Comic) */
+/* THEMES */
 /* ========================= */
+/* Jungle Theme */
+body.theme-jungle {
+  background: #d8f3dc;
+}
+body.theme-jungle h1 {
+  color: #2d6a4f;
+  text-shadow: 2px 2px 0 #1b4332;
+}
+body.theme-jungle .bubble {
+  background: radial-gradient(circle at 30% 30%, #40916c, #1b4332);
+}
+body.theme-jungle .bubble.popped {
+  background: radial-gradient(circle at 70% 70%, #95d5b2, #40916c);
+}
+body.theme-jungle button {
+  background-color: #2d6a4f;
+}
+body.theme-jungle .theme-active {
+  background-color: #40916c;
+}
 
+/* Comic Theme */
 body.theme-comic {
   background: #ffe066;
 }
-
 body.theme-comic h1 {
   color: #e63946;
   text-shadow: 2px 2px 0 #1d3557;
 }
-
 body.theme-comic .bubble {
   background: radial-gradient(circle at 30% 30%, #4ea8de, #1d3557);
 }
-
 body.theme-comic .bubble.popped {
   background: radial-gradient(circle at 70% 70%, #90e0ef, #4ea8de);
 }
 body.theme-comic button {
   background-color: #1d3557;
 }
-
 body.theme-comic .theme-active {
   background-color: #457b9d;
 }
 
-/* ========================= */
-/* JUNGLE THEME */
-/* ========================= */
-
-body.theme-jungle {
-  background: #d8f3dc;
-}
-
-body.theme-jungle h1 {
-  color: #2d6a4f;
-  text-shadow: 2px 2px 0 #1b4332;
-}
-
-body.theme-jungle .bubble {
-  background: radial-gradient(circle at 30% 30%, #40916c, #1b4332);
-}
-
-body.theme-jungle .bubble.popped {
-  background: radial-gradient(circle at 70% 70%, #95d5b2, #40916c);
-}
-  body.theme-jungle button {
-  background-color: #2d6a4f;
-}
-
-body.theme-jungle .theme-active {
-  background-color: #40916c;
-}
-
-/* ========================= */
-/* BUBBLE POP THEME */
-/* ========================= */
-
+/* Bubble Pop Theme */
 body.theme-bubble {
-  background: #ffd6c0; /* soft peach */
+  background: #ffd6c0;
 }
-
 body.theme-bubble h1 {
   color: #4361ee;
   text-shadow: 2px 2px 0 #3a0ca3;
 }
-body.theme-bubble button {
-  background-color: #ff4fa3;
-}
-
-body.theme-bubble .theme-active {
-  background-color: #ff8fab;
-}
 body.theme-bubble .bubble {
   background: radial-gradient(circle at 30% 30%, #ff8fab, #ff4fa3);
 }
-
 body.theme-bubble .bubble.popped {
   background: radial-gradient(circle at 70% 70%, #ffc2d1, #ff8fab);
 }
-.new-record {
-  color: #ff1493;
-  font-weight: bold;
-  animation: flash 0.6s ease-in-out 3;
+body.theme-bubble button {
+  background-color: #ff4fa3;
+}
+body.theme-bubble .theme-active {
+  background-color: #ff8fab;
 }
 
-@keyframes flash {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.15); }
-  100% { transform: scale(1); }
-}
-#bestTimeDisplay {
-  font-size: 18px;
-  margin-top: 5px;
-  color: #444;
-}
-#timerDisplay {
-  font-size: 18px;
-  margin: 3px 0;
-  font-weight: bold;
-  min-height: 22px; /* prevents layout shift */
-}
-
-    body {
-  text-align: center;
-  font-family: "Trebuchet MS", Arial, sans-serif;
-  margin: 5px;
-  overflow-x: hidden;
-}
-
-   h1 {
-  font-size: 44px;
-  margin: 2px 0;
-  letter-spacing: 2px;
-}
-
-    .grid {
-  margin-top: 5px;
-}
-
-    .bubble {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #ff9ecf, #ff4fa3);
-  box-shadow: inset -4px -6px 10px rgba(0,0,0,0.25),
-              inset 4px 6px 10px rgba(255,255,255,0.4);
-  cursor: pointer;
-  transition: 0.15s;
-}
-
-    .bubble.popped {
-      transform: scale(0.85);
-      background: radial-gradient(circle at 70% 70%, #ffd6ec, #ff8cc4);
-      box-shadow: inset 4px 6px 10px rgba(0,0,0,0.3);
-    }
-
-    @media (max-width: 600px) {
+/* ========================= */
+/* MOBILE MEDIA QUERY */
+/* ========================= */
+@media (max-width: 600px) {
   .grid {
     grid-template-columns: repeat(8, 40px);
     gap: 6px;
   }
-
   .bubble {
     width: 40px;
     height: 40px;
   }
-
   h1 {
     font-size: 32px;
   }
 }
+</style>
   </style>
 </head>
 <body class="theme-comic">
