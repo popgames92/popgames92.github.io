@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>POP-IT! | Free Stress Relief Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background: #fdf2f8;
+    }
+
+    h1 {
+      font-size: 60px;
+      margin-top: 30px;
+      letter-spacing: 4px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(8, 60px);
+      gap: 10px;
+      justify-content: center;
+      margin-top: 40px;
+    }
+
+    .bubble {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #ff9ecf, #ff4fa3);
+      box-shadow: inset -4px -6px 10px rgba(0,0,0,0.25),
+                  inset 4px 6px 10px rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .bubble.popped {
+      transform: scale(0.85);
+      background: radial-gradient(circle at 70% 70%, #ffd6ec, #ff8cc4);
+      box-shadow: inset 4px 6px 10px rgba(0,0,0,0.3);
+    }
+
+    @media (max-width: 600px) {
+      .grid {
+        grid-template-columns: repeat(8, 40px);
+        gap: 6px;
+      }
+      .bubble {
+        width: 40px;
+        height: 40px;
+      }
+      h1 {
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<h1>POP-IT!</h1>
+<p>Click the bubbles to pop them 🎉</p>
+
+<div class="grid" id="grid"></div>
+
+<script>
+  const grid = document.getElementById("grid");
+
+  for (let i = 0; i < 64; i++) {
+    const bubble = document.createElement("div");
+    bubble.classList.add("bubble");
+
+    bubble.addEventListener("click", function () {
+      bubble.classList.toggle("popped");
+    });
+
+    grid.appendChild(bubble);
+  }
+</script>
+
+</body>
+</html>
