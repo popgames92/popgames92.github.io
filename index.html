@@ -44,35 +44,42 @@ button:hover {
   background-color: #e13c8d;
 }
     body {
-      text-align: center;
-      font-family: Arial, sans-serif;
-      background: #fdf2f8;
-    }
+  text-align: center;
+  font-family: Arial, sans-serif;
+  background: #fff6cc; /* soft warm yellow */
+  margin: 10px;
+}
 
     h1 {
-      font-size: 60px;
-      margin-top: 30px;
-      letter-spacing: 4px;
-    }
+  font-size: 48px;
+  margin: 10px 0;
+  letter-spacing: 3px;
+  color: #e63946;
+  text-shadow:
+    2px 2px 0 #1d3557,
+    -1px -1px 0 #1d3557,
+    1px -1px 0 #1d3557,
+    -1px 1px 0 #1d3557;
+}
 
     .grid {
-      display: grid;
-      grid-template-columns: repeat(8, 60px);
-      gap: 10px;
-      justify-content: center;
-      margin-top: 40px;
-    }
+  display: grid;
+  grid-template-columns: repeat(8, 50px);
+  gap: 8px;
+  justify-content: center;
+  margin-top: 15px;
+}
 
     .bubble {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #ff9ecf, #ff4fa3);
-      box-shadow: inset -4px -6px 10px rgba(0,0,0,0.25),
-                  inset 4px 6px 10px rgba(255,255,255,0.4);
-      cursor: pointer;
-      transition: 0.15s;
-    }
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ff9ecf, #ff4fa3);
+  box-shadow: inset -4px -6px 10px rgba(0,0,0,0.25),
+              inset 4px 6px 10px rgba(255,255,255,0.4);
+  cursor: pointer;
+  transition: 0.15s;
+}
 
     .bubble.popped {
       transform: scale(0.85);
@@ -81,18 +88,20 @@ button:hover {
     }
 
     @media (max-width: 600px) {
-      .grid {
-        grid-template-columns: repeat(8, 40px);
-        gap: 6px;
-      }
-      .bubble {
-        width: 40px;
-        height: 40px;
-      }
-      h1 {
-        font-size: 36px;
-      }
-    }
+  .grid {
+    grid-template-columns: repeat(8, 32px);
+    gap: 5px;
+  }
+
+  .bubble {
+    width: 32px;
+    height: 32px;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+}
   </style>
 </head>
 <body>
