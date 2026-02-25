@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     .mode-select {
-  margin: 20px 0;
+  margin: 5px 0;
 }
 .new-record {
   color: #ff1493;
@@ -24,20 +24,15 @@
   color: #444;
 }
 #timerDisplay {
-  font-size: 20px;
-  margin-top: 10px;
-  font-weight: bold;
-}
-    button {
-  margin-top: 20px;
-  padding: 10px 20px;
   font-size: 18px;
-  border: none;
-  border-radius: 8px;
-  background-color: #ff4fa3;
-  color: white;
-  cursor: pointer;
-  transition: 0.2s;
+  margin: 3px 0;
+  font-weight: bold;
+  min-height: 22px; /* prevents layout shift */
+}
+   button {
+  margin: 5px 5px;
+  padding: 8px 16px;
+  font-size: 16px;
 }
 
 button:hover {
@@ -45,29 +40,26 @@ button:hover {
 }
     body {
   text-align: center;
-  font-family: Arial, sans-serif;
-  background: #fff6cc; /* soft warm yellow */
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  background: #fff8e6;
   margin: 10px;
 }
 
-    h1 {
-  font-size: 48px;
-  margin: 10px 0;
-  letter-spacing: 3px;
-  color: #e63946;
+   h1 {
+  font-size: 46px;
+  margin: 5px 0 5px 0;
+  letter-spacing: 2px;
+  color: #ff595e;
   text-shadow:
-    2px 2px 0 #1d3557,
-    -1px -1px 0 #1d3557,
-    1px -1px 0 #1d3557,
-    -1px 1px 0 #1d3557;
+    2px 2px 0 #1d3557;
 }
 
     .grid {
   display: grid;
-  grid-template-columns: repeat(8, 50px);
-  gap: 8px;
+  grid-template-columns: repeat(8, 52px);
+  gap: 6px;
   justify-content: center;
-  margin-top: 15px;
+  margin-top: 8px;
 }
 
     .bubble {
@@ -89,13 +81,13 @@ button:hover {
 
     @media (max-width: 600px) {
   .grid {
-    grid-template-columns: repeat(8, 32px);
-    gap: 5px;
+    grid-template-columns: repeat(8, 40px);
+    gap: 6px;
   }
 
   .bubble {
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
   }
 
   h1 {
