@@ -7,6 +7,28 @@
     .mode-select {
   margin: 5px 0;
 }
+  button {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: none;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: white;
+}
+button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+button:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+button:active {
+  transform: translateY(1px);
+}
   .theme-select {
   margin: 5px 0;
 }
@@ -40,6 +62,13 @@ body.theme-comic .bubble {
 body.theme-comic .bubble.popped {
   background: radial-gradient(circle at 70% 70%, #90e0ef, #4ea8de);
 }
+body.theme-comic button {
+  background-color: #1d3557;
+}
+
+body.theme-comic .theme-active {
+  background-color: #457b9d;
+}
 
 /* ========================= */
 /* JUNGLE THEME */
@@ -61,6 +90,13 @@ body.theme-jungle .bubble {
 body.theme-jungle .bubble.popped {
   background: radial-gradient(circle at 70% 70%, #95d5b2, #40916c);
 }
+  body.theme-jungle button {
+  background-color: #2d6a4f;
+}
+
+body.theme-jungle .theme-active {
+  background-color: #40916c;
+}
 
 /* ========================= */
 /* BUBBLE POP THEME */
@@ -74,7 +110,13 @@ body.theme-bubble h1 {
   color: #4361ee;
   text-shadow: 2px 2px 0 #3a0ca3;
 }
+body.theme-bubble button {
+  background-color: #ff4fa3;
+}
 
+body.theme-bubble .theme-active {
+  background-color: #ff8fab;
+}
 body.theme-bubble .bubble {
   background: radial-gradient(circle at 30% 30%, #ff8fab, #ff4fa3);
 }
@@ -104,37 +146,22 @@ body.theme-bubble .bubble.popped {
   font-weight: bold;
   min-height: 22px; /* prevents layout shift */
 }
-   button {
-  margin: 5px 5px;
-  padding: 8px 16px;
-  font-size: 16px;
-}
 
-button:hover {
-  background-color: #e13c8d;
-}
     body {
   text-align: center;
   font-family: "Trebuchet MS", Arial, sans-serif;
-  background: #fff8e6;
-  margin: 10px;
+  margin: 5px;
+  overflow-x: hidden;
 }
 
    h1 {
-  font-size: 46px;
-  margin: 5px 0 5px 0;
+  font-size: 44px;
+  margin: 2px 0;
   letter-spacing: 2px;
-  color: #ff595e;
-  text-shadow:
-    2px 2px 0 #1d3557;
 }
 
     .grid {
-  display: grid;
-  grid-template-columns: repeat(8, 52px);
-  gap: 6px;
-  justify-content: center;
-  margin-top: 8px;
+  margin-top: 5px;
 }
 
     .bubble {
@@ -176,8 +203,8 @@ button:hover {
 <h1>POP-IT!</h1>
   <div class="theme-select">
   <button id="themeJungle">🌴 Jungle</button>
-  <button id="themeComic">🦸 Comic</button>
-  <button id="themeBubble">🌸 Bubble Pop</button>
+  <button id="themeComic">🎯 Comic</button>
+  <button id="themeBubble">🫧 Bubble Pop</button>
 </div>
 <div class="mode-select">
   <button id="relaxedMode">Relaxed Mode</button>
@@ -201,7 +228,29 @@ const bestTimeDisplay = document.getElementById("bestTimeDisplay");
 const themeJungle = document.getElementById("themeJungle");
 const themeComic = document.getElementById("themeComic");
 const themeBubble = document.getElementById("themeBubble");
+function setTheme(themeName) {
+  document.body.className = themeName;
 
+  themeJungle.classList.remove("theme-active");
+  themeComic.classList.remove("theme-active");
+  themeBubble.classList.remove("theme-active");
+
+  if (themeName === "theme-jungle") themeJungle.classList.add("theme-active");
+  if (themeName === "theme-comic") themeComic.classList.add("theme-active");
+  if (themeName === "theme-bubble") themeBubble.classList.add("theme-active");
+}
+
+themeJungle.addEventListener("click", function() {
+  setTheme("theme-jungle");
+});
+
+themeComic.addEventListener("click", function() {
+  setTheme("theme-comic");
+});
+
+themeBubble.addEventListener("click", function() {
+  setTheme("theme-bubble");
+});
 let mode = null;
 let timer = null;
 let startTime = null;
@@ -292,17 +341,7 @@ function resetGame() {
   clearInterval(timer);
   timerStarted = false;
 }
-themeJungle.addEventListener("click", function() {
-  document.body.className = "theme-jungle";
-});
 
-themeComic.addEventListener("click", function() {
-  document.body.className = "theme-comic";
-});
-
-themeBubble.addEventListener("click", function() {
-  document.body.className = "theme-bubble";
-});
 resetBtn.addEventListener("click", function () {
   resetGame();
   statusText.textContent = "Board reset. Choose a mode 🎮";
