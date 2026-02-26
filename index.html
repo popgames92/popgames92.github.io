@@ -78,7 +78,7 @@ button {
   color: white;
   -webkit-appearance: none;
   appearance: none;
-  margin: 4px; /* small spacing around each button */
+  margin: 0px; /* small spacing around each button */
 }
 
 button:hover {
@@ -186,6 +186,14 @@ body.theme-bubble .theme-active {
 
 .grid {
   margin-top: 3px;
+}
+    /* Desktop button layout fix */
+.theme-select,
+.mode-select {
+  display: flex;
+  justify-content: center;
+  gap: 6px; /* same as bubble gap */
+  margin: 4px 0;
 }
 /* ========================= */
 /* MOBILE MEDIA QUERY */
