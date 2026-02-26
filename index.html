@@ -351,7 +351,16 @@ let soundOn = true;
   // Set default mode to relaxed
 mode = "relaxed";
 statusText.textContent = "Relaxed mode 😌 Pop at your pace!";
-const popSound = new Audio("pop.mp3");
+// Create small sound pool for fast clicking
+const soundPool = [];
+for (let i = 0; i < 5; i++) {
+  const audio = new Audio("pop.mp3");
+  audio.volume = 0.5;
+  audio.preload = "auto";
+  soundPool.push(audio);
+}
+
+let soundIndex = 0;
 
 soundToggle.addEventListener("click", function () {
   soundOn = !soundOn;
@@ -369,14 +378,12 @@ for (let i = 0; i < 64; i++) {
   bubble.addEventListener("click", function () {
     if (!bubble.classList.contains("popped")) {
       bubble.classList.add("popped");
-      if (soundOn) {
-  // Unlock sound on first user interaction (needed for some browsers)
-  if (popSound.paused && popSound.currentTime === 0) {
-    popSound.volume = 0; // play muted first to unlock
-    popSound.play().then(() => popSound.pause());
-    popSound.currentTime = 0;
-    popSound.volume = 0.6;
-  }
+     if (soundOn) {
+  const sound = soundPool[soundIndex];
+  sound.currentTime = 0;
+  sound.play().catch(() => {});
+  soundIndex = (soundIndex + 1) % soundPool.length;
+}
 
   // Play overlapping clicks
   const soundClone = popSound.cloneNode();
@@ -481,9 +488,7 @@ resetBtn.addEventListener("click", function () {
 });
   playAgainBtn.addEventListener("click", function () {
   overlay.classList.add("hidden");
-  resetGame();
-  statusText.textContent = "Choose a mode to begin 🎮";
-  timerDisplay.textContent = "";
+  relaxedBtn.click();   // re-trigger relaxed mode properly
 });
 </script>
 
