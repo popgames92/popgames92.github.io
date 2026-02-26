@@ -349,6 +349,9 @@ let poppedCount = 0;
 let timerStarted = false;
 let bestTime = localStorage.getItem("bestTime");
 let soundOn = true;
+  // Set default mode to relaxed
+mode = "relaxed";
+statusText.textContent = "Relaxed mode 😌 Pop at your pace!";
 const popSound = new Audio("pop.mp3");
 
 soundToggle.addEventListener("click", function () {
@@ -368,11 +371,18 @@ for (let i = 0; i < 64; i++) {
     if (!bubble.classList.contains("popped")) {
       bubble.classList.add("popped");
       if (soundOn) {
-  // Clone the main popSound object for overlapping clicks
+  // Unlock sound on first user interaction (needed for some browsers)
+  if (popSound.paused && popSound.currentTime === 0) {
+    popSound.volume = 0; // play muted first to unlock
+    popSound.play().then(() => popSound.pause());
+    popSound.currentTime = 0;
+    popSound.volume = 0.6;
+  }
+
+  // Play overlapping clicks
   const soundClone = popSound.cloneNode();
   soundClone.volume = 0.6;
   soundClone.play().catch(() => {
-    // sometimes browser blocks autoplay before first interaction
     console.log("Sound blocked until user interacts with the page.");
   });
 }
