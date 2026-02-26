@@ -409,25 +409,29 @@ timedBtn.addEventListener("click", function () {
 function startTimer() {
   timerStarted = true;
   startTime = Date.now();
+
   timer = setInterval(function () {
-    const elapsed = (Date.now() - startTime) / 1000;
-    timerDisplay.textContent = "Time: " + elapsed.toFixed(2) + "s";
+    const rawTime = (Date.now() - startTime) / 1000;
+    const displayTime = Math.floor(rawTime * 100) / 100;
+    timerDisplay.textContent = "Time: " + displayTime.toFixed(2) + "s";
   }, 10);
 }
 
 function stopTimer() {
   clearInterval(timer);
+
   const rawTime = (Date.now() - startTime) / 1000;
-const finalTime = Math.floor(rawTime * 100) / 100;
+  const finalTime = Math.floor(rawTime * 100) / 100;
 
   timerStarted = false;
 
   if (!bestTime || parseFloat(finalTime) < parseFloat(bestTime)) {
     bestTime = finalTime;
     localStorage.setItem("bestTime", bestTime);
+
     bestTimeText.textContent = "🏆 Best Time: " + parseFloat(bestTime).toFixed(2) + "s";
 
-    statusText.textContent = "🎉 NEW RECORD! " + finalTime + "s!";
+    statusText.textContent = "🎉 NEW RECORD! " + finalTime.toFixed(2) + "s!";
     statusText.classList.add("new-record");
 
     setTimeout(function () {
@@ -437,8 +441,9 @@ const finalTime = Math.floor(rawTime * 100) / 100;
   } else {
     statusText.textContent = "Finished in " + finalTime.toFixed(2) + " seconds!";
   }
+
   overlayMessage.textContent = statusText.textContent;
-overlay.classList.remove("hidden");
+  overlay.classList.remove("hidden");
 }
 
 function resetGame() {
