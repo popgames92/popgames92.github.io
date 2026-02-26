@@ -3,10 +3,11 @@
 <head>
   <title>POP-IT! | Free Stress Relief Game</title>
   <meta name="description" content="Play POP-IT! online for free. Relaxing stress relief bubble popping game with timed mode and colorful themes. No download required.">
-  <meta name="keywords" content="pop it game, stress relief game, bubble pop game, relaxing game online, free browser game">
-  <meta name="author" content="Your Name">
+<meta name="keywords" content="pop it game, stress relief game, bubble pop game, relaxing game online, free browser game">
+<meta name="author" content="Your Name">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+
 /* ========================= */
 /* GLOBAL STYLES */
 /* ========================= */
@@ -22,7 +23,7 @@ h1 {
   margin: 0;
   letter-spacing: 2px;
 }
-p {
+  p {
   margin: 2px 0;
 }
 
@@ -33,7 +34,7 @@ p {
   font-size: 18px;
   margin: 3px 0;
   font-weight: bold;
-  min-height: 22px;
+  min-height: 22px; /* prevents layout shift */
 }
 
 #bestTimeDisplay {
@@ -72,7 +73,7 @@ p {
 button {
   padding: 8px 18px;
   border-radius: 20px;
-  border: 2px solid rgba(255,255,255,0.6);
+  border: 2px solid rgba(255,255,255,0.6); /* subtle outline */
   font-weight: bold;
   font-size: 14px;
   cursor: pointer;
@@ -80,58 +81,124 @@ button {
   color: white;
   -webkit-appearance: none;
   appearance: none;
-  margin: 0px;
+  margin: 0px; /* small spacing around each button */
 }
 
 button:hover {
   transform: translateY(-2px);
   opacity: 0.9;
-  border-color: rgba(255,255,255,0.9);
+  border-color: rgba(255,255,255,0.9); /* outline brightens on hover */
 }
 
 button:active {
   transform: translateY(1px);
 }
+  
 
 /* ========================= */
 /* ACTIVE THEME BUTTON HIGHLIGHT */
+/* ========================= */
 .theme-active {
   box-shadow: 0 0 8px rgba(0,0,0,0.5);
 }
 
 /* ========================= */
 /* THEMES */
-body.theme-jungle { background: #d8f3dc; }
-body.theme-jungle h1 { color: #2d6a4f; text-shadow: 2px 2px 0 #1b4332; }
-body.theme-jungle .bubble { background: radial-gradient(circle at 30% 30%, #40916c, #1b4332); }
-body.theme-jungle .bubble.popped { background: radial-gradient(circle at 70% 70%, #95d5b2, #40916c); }
-body.theme-jungle button { background-color: #2d6a4f; }
-body.theme-jungle .theme-active { background-color: #40916c; }
+/* ========================= */
+/* Jungle Theme */
+body.theme-jungle {
+  background: #d8f3dc;
+}
+body.theme-jungle h1 {
+  color: #2d6a4f;
+  text-shadow: 2px 2px 0 #1b4332;
+}
+body.theme-jungle .bubble {
+  background: radial-gradient(circle at 30% 30%, #40916c, #1b4332);
+}
+body.theme-jungle .bubble.popped {
+  background: radial-gradient(circle at 70% 70%, #95d5b2, #40916c);
+}
+body.theme-jungle button {
+  background-color: #2d6a4f;
+}
+body.theme-jungle .theme-active {
+  background-color: #40916c;
+}
 
-body.theme-comic { background: #ffe066; }
-body.theme-comic h1 { color: #e63946; text-shadow: 2px 2px 0 #1d3557; }
-body.theme-comic .bubble { background: radial-gradient(circle at 30% 30%, #4ea8de, #1d3557); }
-body.theme-comic .bubble.popped { background: radial-gradient(circle at 70% 70%, #90e0ef, #4ea8de); }
-body.theme-comic button { background-color: #1d3557; }
-body.theme-comic .theme-active { background-color: #457b9d; }
+/* Comic Theme */
+body.theme-comic {
+  background: #ffe066;
+}
+body.theme-comic h1 {
+  color: #e63946;
+  text-shadow: 2px 2px 0 #1d3557;
+}
+body.theme-comic .bubble {
+  background: radial-gradient(circle at 30% 30%, #4ea8de, #1d3557);
+}
+body.theme-comic .bubble.popped {
+  background: radial-gradient(circle at 70% 70%, #90e0ef, #4ea8de);
+}
+body.theme-comic button {
+  background-color: #1d3557;
+}
+body.theme-comic .theme-active {
+  background-color: #457b9d;
+}
 
-body.theme-bubble { background: #ffd6c0; }
-body.theme-bubble h1 { color: #4361ee; text-shadow: 2px 2px 0 #3a0ca3; }
-body.theme-bubble .bubble { background: radial-gradient(circle at 30% 30%, #ff8fab, #ff4fa3); }
-body.theme-bubble .bubble.popped { background: radial-gradient(circle at 70% 70%, #ffc2d1, #ff8fab); }
-body.theme-bubble button { background-color: #ff4fa3; }
-body.theme-bubble .theme-active { background-color: #ff8fab; }
-
+/* Bubble Pop Theme */
+body.theme-bubble {
+  background: #ffd6c0;
+}
+body.theme-bubble h1 {
+  color: #4361ee;
+  text-shadow: 2px 2px 0 #3a0ca3;
+}
+body.theme-bubble .bubble {
+  background: radial-gradient(circle at 30% 30%, #ff8fab, #ff4fa3);
+}
+body.theme-bubble .bubble.popped {
+  background: radial-gradient(circle at 70% 70%, #ffc2d1, #ff8fab);
+}
+body.theme-bubble button {
+  background-color: #ff4fa3;
+}
+body.theme-bubble .theme-active {
+  background-color: #ff8fab;
+}
 /* ========================= */
 /* BUTTON GROUP SPACING */
-.theme-select, .mode-select {
+/* ========================= */
+
+.theme-select {
+  margin: 4px 0 0 0;  /* remove bottom space */
+}
+
+.mode-select {
+  margin: 0 0 6px 0;  /* remove top space */
+}
+
+#statusText {
+  margin: 6px 0;
+}
+
+#resetBtn {
+  margin: 8px 0;
+}
+
+.grid {
+  margin-top: 3px;
+}
+    /* Desktop button layout fix */
+.theme-select,
+.mode-select {
   display: flex;
   justify-content: center;
   gap: 4px;
-  margin: 2px 0;
+  margin: 2px 0; /* reduced from 4px */
 }
-
-.ad-slot {
+    .ad-slot {
   width: 100%;
   max-width: 468px;
   height: 60px;
@@ -144,49 +211,76 @@ body.theme-bubble .theme-active { background-color: #ff8fab; }
   font-size: 13px;
   border-radius: 6px;
 }
-
+    /* ========================= */
+/* GAME OVERLAY */
 /* ========================= */
-/* OVERLAY MESSAGE */
-#overlay {
+
+.overlay {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(0,0,0,0.85);
-  color: #fff;
-  font-size: 28px;
-  padding: 24px 40px;
-  border-radius: 12px;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 100;
+  z-index: 1000;
 }
-.hidden { display: none; }
 
+.overlay-box {
+  background: white;
+  padding: 20px 30px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.overlay-box h2 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.hidden {
+  display: none;
+}
 /* ========================= */
 /* MOBILE MEDIA QUERY */
+/* ========================= */
 @media (max-width: 600px) {
-  .grid { grid-template-columns: repeat(8, 40px); gap: 6px; }
-  .bubble { width: 40px; height: 40px; }
-  h1 { font-size: 32px; }
-  .theme-select { gap: 6px; }
-  .theme-select button { padding: 8px 12px; font-size: 14px; }
+  .grid {
+    grid-template-columns: repeat(8, 40px);
+    gap: 6px;
+  }
+
+  .bubble {
+    width: 40px;
+    height: 40px;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  /* Adjusted mobile margins for buttons */
+  .theme-select {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.theme-select button {
+  padding: 8px 12px;
+  font-size: 14px;
+}  
 }
 </style>
 </head>
 <body class="theme-comic">
 
 <h1>POP-IT!</h1>
-
-<div class="theme-select">
+  <div class="theme-select">
   <button id="themeJungle">🌴 Jungle</button>
   <button id="themeComic">🎯 Comic</button>
   <button id="themeBubble">🫧 Bubble Pop</button>
 </div>
-
-<div class="ad-slot top-ad">Advertisement</div>
-
+  
 <div class="mode-select">
   <button id="relaxedMode">Relaxed Mode</button>
   <button id="timedMode">Timed Mode</button>
@@ -194,23 +288,23 @@ body.theme-bubble .theme-active { background-color: #ff8fab; }
 
 <p id="statusText">Choose a mode to begin 🎮</p>
 <p id="timerDisplay"></p>
-<p id="bestTimeDisplay">
+  <p id="bestTimeDisplay">
   <span id="bestTimeText"></span>
   <span id="soundToggle" style="cursor:pointer; margin-left:8px;">🔊</span>
 </p>
-
 <button id="resetBtn">Reset Board</button>
-
 <div class="grid" id="grid"></div>
-
-<div class="ad-slot bottom-ad">Advertisement</div>
-
-<div id="overlay" class="hidden"></div>
+  <div id="gameOverlay" class="overlay hidden">
+  <div class="overlay-box">
+    <h2 id="overlayMessage"></h2>
+    <button id="playAgainBtn">Play Again</button>
+  </div>
+</div>
+  <div class="ad-slot bottom-ad">
+  Advertisement
+</div>
 
 <script>
-// =========================
-// VARIABLES
-// =========================
 const grid = document.getElementById("grid");
 const resetBtn = document.getElementById("resetBtn");
 const relaxedBtn = document.getElementById("relaxedMode");
@@ -219,11 +313,35 @@ const timerDisplay = document.getElementById("timerDisplay");
 const statusText = document.getElementById("statusText");
 const bestTimeText = document.getElementById("bestTimeText");
 const soundToggle = document.getElementById("soundToggle");
-const overlay = document.getElementById("overlay");
 const themeJungle = document.getElementById("themeJungle");
 const themeComic = document.getElementById("themeComic");
 const themeBubble = document.getElementById("themeBubble");
+const overlay = document.getElementById("gameOverlay");
+const overlayMessage = document.getElementById("overlayMessage");
+const playAgainBtn = document.getElementById("playAgainBtn");
+function setTheme(themeName) {
+  document.body.className = themeName;
 
+  themeJungle.classList.remove("theme-active");
+  themeComic.classList.remove("theme-active");
+  themeBubble.classList.remove("theme-active");
+
+  if (themeName === "theme-jungle") themeJungle.classList.add("theme-active");
+  if (themeName === "theme-comic") themeComic.classList.add("theme-active");
+  if (themeName === "theme-bubble") themeBubble.classList.add("theme-active");
+}
+
+themeJungle.addEventListener("click", function() {
+  setTheme("theme-jungle");
+});
+
+themeComic.addEventListener("click", function() {
+  setTheme("theme-comic");
+});
+
+themeBubble.addEventListener("click", function() {
+  setTheme("theme-bubble");
+});
 let mode = null;
 let timer = null;
 let startTime = null;
@@ -233,42 +351,15 @@ let bestTime = localStorage.getItem("bestTime");
 let soundOn = true;
 const popSound = new Audio("pop.mp3");
 
-// =========================
-// THEME SWITCHER
-// =========================
-function setTheme(themeName) {
-  document.body.className = themeName;
-  themeJungle.classList.remove("theme-active");
-  themeComic.classList.remove("theme-active");
-  themeBubble.classList.remove("theme-active");
-  if (themeName === "theme-jungle") themeJungle.classList.add("theme-active");
-  if (themeName === "theme-comic") themeComic.classList.add("theme-active");
-  if (themeName === "theme-bubble") themeBubble.classList.add("theme-active");
-}
-
-themeJungle.addEventListener("click", () => setTheme("theme-jungle"));
-themeComic.addEventListener("click", () => setTheme("theme-comic"));
-themeBubble.addEventListener("click", () => setTheme("theme-bubble"));
-
-// =========================
-// SOUND TOGGLE
-// =========================
 soundToggle.addEventListener("click", function () {
   soundOn = !soundOn;
   soundToggle.textContent = soundOn ? "🔊" : "🔇";
-  popSound.play().then(() => popSound.pause()).catch(() => {});
 });
-
-// =========================
-// BEST TIME DISPLAY
-// =========================
 if (bestTime) {
   bestTimeText.textContent = "🏆 Best Time: " + parseFloat(bestTime).toFixed(2) + "s";
 }
 
-// =========================
-// CREATE BUBBLES + CLICK HANDLER
-// =========================
+// Create bubbles
 for (let i = 0; i < 64; i++) {
   const bubble = document.createElement("div");
   bubble.classList.add("bubble");
@@ -276,30 +367,35 @@ for (let i = 0; i < 64; i++) {
   bubble.addEventListener("click", function () {
     if (!bubble.classList.contains("popped")) {
       bubble.classList.add("popped");
+      if (soundOn) {
+  // Clone the main popSound object for overlapping clicks
+  const soundClone = popSound.cloneNode();
+  soundClone.volume = 0.6;
+  soundClone.play().catch(() => {
+    // sometimes browser blocks autoplay before first interaction
+    console.log("Sound blocked until user interacts with the page.");
+  });
+}
       poppedCount++;
 
-      if (soundOn) {
-        const soundClone = popSound.cloneNode();
-        soundClone.volume = 0.6;
-        soundClone.play().catch(() => console.log("Sound blocked"));
+      if (mode === "timed" && !timerStarted) {
+        startTimer();
       }
 
-      if (mode === "timed" && !timerStarted) startTimer();
-
-      if (poppedCount === 64) {
-        overlay.textContent = mode === "timed" ? statusText.textContent : "All bubbles popped! 🎉";
-        overlay.classList.remove("hidden");
-        if (mode === "timed") stopTimer();
+      if (mode === "timed" && poppedCount === 64) {
+        
+        stopTimer();
       }
+      if (mode === "relaxed" && poppedCount === 64) {
+  overlayMessage.textContent = "All bubbles popped! 🎉";
+  overlay.classList.remove("hidden");
+}
     }
   });
 
   grid.appendChild(bubble);
 }
 
-// =========================
-// MODE BUTTONS
-// =========================
 relaxedBtn.addEventListener("click", function () {
   mode = "relaxed";
   resetGame();
@@ -314,14 +410,11 @@ timedBtn.addEventListener("click", function () {
   timerDisplay.textContent = "Time: 0.00s";
 });
 
-// =========================
-// TIMER FUNCTIONS
-// =========================
 function startTimer() {
   timerStarted = true;
   startTime = Date.now();
 
-  timer = setInterval(() => {
+  timer = setInterval(function () {
     const rawTime = (Date.now() - startTime) / 1000;
     const displayTime = Math.floor(rawTime * 100) / 100;
     timerDisplay.textContent = "Time: " + displayTime.toFixed(2) + "s";
@@ -330,43 +423,60 @@ function startTimer() {
 
 function stopTimer() {
   clearInterval(timer);
+
   const rawTime = (Date.now() - startTime) / 1000;
   const finalTime = Math.floor(rawTime * 100) / 100;
+
   timerStarted = false;
 
   if (!bestTime || parseFloat(finalTime) < parseFloat(bestTime)) {
     bestTime = finalTime;
     localStorage.setItem("bestTime", bestTime);
+
     bestTimeText.textContent = "🏆 Best Time: " + parseFloat(bestTime).toFixed(2) + "s";
+
     statusText.textContent = "🎉 NEW RECORD! " + finalTime.toFixed(2) + "s!";
     statusText.classList.add("new-record");
-    setTimeout(() => statusText.classList.remove("new-record"), 1800);
+
+    setTimeout(function () {
+      statusText.classList.remove("new-record");
+    }, 1800);
+
   } else {
     statusText.textContent = "Finished in " + finalTime.toFixed(2) + " seconds!";
   }
 
-  overlay.textContent = statusText.textContent;
+  overlayMessage.textContent = statusText.textContent;
   overlay.classList.remove("hidden");
 }
 
-// =========================
-// RESET GAME
-// =========================
 function resetGame() {
   const bubbles = document.querySelectorAll(".bubble");
-  bubbles.forEach((bubble, index) => setTimeout(() => bubble.classList.remove("popped"), index * 5));
+
+  bubbles.forEach(function (bubble, index) {
+    setTimeout(function () {
+      bubble.classList.remove("popped");
+    }, index * 5);
+  });
+
   poppedCount = 0;
   clearInterval(timer);
   timerStarted = false;
-  overlay.classList.add("hidden");
 }
 
 resetBtn.addEventListener("click", function () {
   resetGame();
   statusText.textContent = "Board reset. Choose a mode 🎮";
   timerDisplay.textContent = "";
-  bestTimeText.textContent = bestTime ? "🏆 Best Time: " + bestTime.toFixed(2) + "s" : "";
+  bestTimeText.textContent = bestTime ? "🏆 Best Time: " + bestTime + "s" : "";
+});
+  playAgainBtn.addEventListener("click", function () {
+  overlay.classList.add("hidden");
+  resetGame();
+  statusText.textContent = "Choose a mode to begin 🎮";
+  timerDisplay.textContent = "";
 });
 </script>
+
 </body>
 </html>
