@@ -167,9 +167,12 @@ body.theme-bubble .theme-active {
 /* BUTTON GROUP SPACING */
 /* ========================= */
 
-.theme-select,
+.theme-select {
+  margin: 6px 0 2px 0; /* less bottom space */
+}
+
 .mode-select {
-  margin: 8px 0;
+  margin: 2px 0 6px 0; /* less top space */
 }
 
 #statusText {
@@ -202,12 +205,16 @@ body.theme-bubble .theme-active {
   }
 
   /* Adjusted mobile margins for buttons */
-  
+  .theme-select {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
 
-  button {
-    font-size: 16px;
-    padding: 10px 22px;
-  }
+.theme-select button {
+  padding: 8px 12px;
+  font-size: 14px;
+}  
 }
 </style>
   </style>
