@@ -211,6 +211,35 @@ body.theme-bubble .theme-active {
   font-size: 13px;
   border-radius: 6px;
 }
+    /* ========================= */
+/* GAME OVERLAY */
+/* ========================= */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.overlay-box {
+  background: white;
+  padding: 20px 30px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.overlay-box h2 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.hidden {
+  display: none;
+}
 /* ========================= */
 /* MOBILE MEDIA QUERY */
 /* ========================= */
@@ -265,6 +294,12 @@ body.theme-bubble .theme-active {
 </p>
 <button id="resetBtn">Reset Board</button>
 <div class="grid" id="grid"></div>
+  <div id="gameOverlay" class="overlay hidden">
+  <div class="overlay-box">
+    <h2 id="overlayMessage"></h2>
+    <button id="playAgainBtn">Play Again</button>
+  </div>
+</div>
   <div class="ad-slot bottom-ad">
   Advertisement
 </div>
@@ -281,6 +316,9 @@ const soundToggle = document.getElementById("soundToggle");
 const themeJungle = document.getElementById("themeJungle");
 const themeComic = document.getElementById("themeComic");
 const themeBubble = document.getElementById("themeBubble");
+const overlay = document.getElementById("gameOverlay");
+const overlayMessage = document.getElementById("overlayMessage");
+const playAgainBtn = document.getElementById("playAgainBtn");
 function setTheme(themeName) {
   document.body.className = themeName;
 
@@ -340,8 +378,13 @@ for (let i = 0; i < 64; i++) {
       }
 
       if (mode === "timed" && poppedCount === 64) {
+        
         stopTimer();
       }
+      if (mode === "relaxed" && poppedCount === 64) {
+  overlayMessage.textContent = "All bubbles popped! 🎉";
+  overlay.classList.remove("hidden");
+}
     }
   });
 
@@ -392,6 +435,8 @@ function stopTimer() {
   } else {
     statusText.textContent = "Finished in " + finalTime + " seconds!";
   }
+  overlayMessage.textContent = statusText.textContent;
+overlay.classList.remove("hidden");
 }
 
 function resetGame() {
@@ -413,6 +458,12 @@ resetBtn.addEventListener("click", function () {
   statusText.textContent = "Board reset. Choose a mode 🎮";
   timerDisplay.textContent = "";
   bestTimeText.textContent = bestTime ? "🏆 Best Time: " + bestTime + "s" : "";
+});
+  playAgainBtn.addEventListener("click", function () {
+  overlay.classList.add("hidden");
+  resetGame();
+  statusText.textContent = "Choose a mode to begin 🎮";
+  timerDisplay.textContent = "";
 });
 </script>
 
