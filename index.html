@@ -242,7 +242,6 @@ body.theme-bubble .theme-active {
 }  
 }
 </style>
-  </style>
 </head>
 <body class="theme-comic">
 
@@ -252,9 +251,7 @@ body.theme-bubble .theme-active {
   <button id="themeComic">🎯 Comic</button>
   <button id="themeBubble">🫧 Bubble Pop</button>
 </div>
-  <div class="ad-slot top-ad">
-  Advertisement
-</div>
+  
 <div class="mode-select">
   <button id="relaxedMode">Relaxed Mode</button>
   <button id="timedMode">Timed Mode</button>
@@ -405,11 +402,6 @@ function resetGame() {
       bubble.classList.remove("popped");
     }, index * 5);
   });
-
-  poppedCount = 0;
-  clearInterval(timer);
-  timerStarted = false;
-});
 
   poppedCount = 0;
   clearInterval(timer);
