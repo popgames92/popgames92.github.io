@@ -356,7 +356,7 @@ soundToggle.addEventListener("click", function () {
   soundToggle.textContent = soundOn ? "🔊" : "🔇";
 });
 if (bestTime) {
-  bestTimeText.textContent = "🏆 Best Time: " + bestTime + "s";
+  bestTimeText.textContent = "🏆 Best Time: " + parseFloat(bestTime).toFixed(2) + "s";
 }
 
 // Create bubbles
