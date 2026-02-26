@@ -13,6 +13,8 @@ body {
   font-family: "Trebuchet MS", Arial, sans-serif;
   margin: 5px;
   overflow-x: hidden;
+  max-width: 500px;
+margin: 0 auto;
 }
 
 h1 {
@@ -87,13 +89,7 @@ button:hover {
 button:active {
   transform: translateY(1px);
 }
-  .theme-select {
-  margin-bottom: 20px; /* more spacing */
-}
-
-.mode-select {
-  margin-bottom: 15px; /* more spacing */
-}
+  
 
 /* ========================= */
 /* ACTIVE THEME BUTTON HIGHLIGHT */
@@ -167,7 +163,26 @@ body.theme-bubble button {
 body.theme-bubble .theme-active {
   background-color: #ff8fab;
 }
+/* ========================= */
+/* BUTTON GROUP SPACING */
+/* ========================= */
 
+.theme-select,
+.mode-select {
+  margin: 8px 0;
+}
+
+#statusText {
+  margin: 6px 0;
+}
+
+#resetBtn {
+  margin: 8px 0;
+}
+
+.grid {
+  margin-top: 8px;
+}
 /* ========================= */
 /* MOBILE MEDIA QUERY */
 /* ========================= */
@@ -187,13 +202,7 @@ body.theme-bubble .theme-active {
   }
 
   /* Adjusted mobile margins for buttons */
-  .theme-select {
-    margin-bottom: 20px; /* more space between theme and mode buttons */
-  }
-
-  .mode-select {
-    margin-bottom: 18px; /* a bit more space */
-  }
+  
 
   button {
     font-size: 16px;
