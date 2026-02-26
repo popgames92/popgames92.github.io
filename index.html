@@ -2,6 +2,9 @@
 <html>
 <head>
   <title>POP-IT! | Free Stress Relief Game</title>
+  <meta name="description" content="Play POP-IT! online for free. Relaxing stress relief bubble popping game with timed mode and colorful themes. No download required.">
+<meta name="keywords" content="pop it game, stress relief game, bubble pop game, relaxing game online, free browser game">
+<meta name="author" content="Your Name">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
 
@@ -195,6 +198,19 @@ body.theme-bubble .theme-active {
   gap: 4px;
   margin: 2px 0; /* reduced from 4px */
 }
+    .ad-slot {
+  width: 100%;
+  max-width: 468px;
+  height: 60px;
+  margin: 8px auto;
+  background: #f2f2f2;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  border-radius: 6px;
+}
 /* ========================= */
 /* MOBILE MEDIA QUERY */
 /* ========================= */
@@ -236,6 +252,9 @@ body.theme-bubble .theme-active {
   <button id="themeComic">🎯 Comic</button>
   <button id="themeBubble">🫧 Bubble Pop</button>
 </div>
+  <div class="ad-slot top-ad">
+  Advertisement
+</div>
 <div class="mode-select">
   <button id="relaxedMode">Relaxed Mode</button>
   <button id="timedMode">Timed Mode</button>
@@ -243,9 +262,15 @@ body.theme-bubble .theme-active {
 
 <p id="statusText">Choose a mode to begin 🎮</p>
 <p id="timerDisplay"></p>
-  <p id="bestTimeDisplay"></p>
+  <p id="bestTimeDisplay">
+  <span id="bestTimeText"></span>
+  <span id="soundToggle" style="cursor:pointer; margin-left:8px;">🔊</span>
+</p>
 <button id="resetBtn">Reset Board</button>
 <div class="grid" id="grid"></div>
+  <div class="ad-slot bottom-ad">
+  Advertisement
+</div>
 
 <script>
 const grid = document.getElementById("grid");
@@ -254,7 +279,8 @@ const relaxedBtn = document.getElementById("relaxedMode");
 const timedBtn = document.getElementById("timedMode");
 const timerDisplay = document.getElementById("timerDisplay");
 const statusText = document.getElementById("statusText");
-const bestTimeDisplay = document.getElementById("bestTimeDisplay");
+const bestTimeText = document.getElementById("bestTimeText");
+const soundToggle = document.getElementById("soundToggle");
 const themeJungle = document.getElementById("themeJungle");
 const themeComic = document.getElementById("themeComic");
 const themeBubble = document.getElementById("themeBubble");
@@ -287,9 +313,15 @@ let startTime = null;
 let poppedCount = 0;
 let timerStarted = false;
 let bestTime = localStorage.getItem("bestTime");
+let soundOn = true;
+const popSound = new Audio("pop.mp3");
 
+soundToggle.addEventListener("click", function () {
+  soundOn = !soundOn;
+  soundToggle.textContent = soundOn ? "🔊" : "🔇";
+});
 if (bestTime) {
-  bestTimeDisplay.textContent = "🏆 Best Time: " + bestTime + "s";
+  bestTimeText.textContent = "🏆 Best Time: " + bestTime + "s";
 }
 
 // Create bubbles
@@ -300,6 +332,10 @@ for (let i = 0; i < 64; i++) {
   bubble.addEventListener("click", function () {
     if (!bubble.classList.contains("popped")) {
       bubble.classList.add("popped");
+      if (soundOn) {
+  popSound.currentTime = 0;
+  popSound.play();
+}
       poppedCount++;
 
       if (mode === "timed" && !timerStarted) {
@@ -347,7 +383,7 @@ function stopTimer() {
   if (!bestTime || parseFloat(finalTime) < parseFloat(bestTime)) {
     bestTime = finalTime;
     localStorage.setItem("bestTime", bestTime);
-    bestTimeDisplay.textContent = "🏆 Best Time: " + bestTime + "s";
+    bestTimeText.textContent = "🏆 Best Time: " + bestTime + "s";
 
     statusText.textContent = "🎉 NEW RECORD! " + finalTime + "s!";
     statusText.classList.add("new-record");
@@ -363,9 +399,17 @@ function stopTimer() {
 
 function resetGame() {
   const bubbles = document.querySelectorAll(".bubble");
-  bubbles.forEach(function (bubble) {
-    bubble.classList.remove("popped");
+
+  bubbles.forEach(function (bubble, index) {
+    setTimeout(function () {
+      bubble.classList.remove("popped");
+    }, index * 5);
   });
+
+  poppedCount = 0;
+  clearInterval(timer);
+  timerStarted = false;
+});
 
   poppedCount = 0;
   clearInterval(timer);
@@ -376,7 +420,7 @@ resetBtn.addEventListener("click", function () {
   resetGame();
   statusText.textContent = "Board reset. Choose a mode 🎮";
   timerDisplay.textContent = "";
-  bestTimeDisplay.textContent = bestTime ? "🏆 Best Time: " + bestTime + "s" : "";
+  bestTimeText.textContent = bestTime ? "🏆 Best Time: " + bestTime + "s" : "";
 });
 </script>
 
