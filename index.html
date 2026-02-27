@@ -348,9 +348,7 @@ let poppedCount = 0;
 let timerStarted = false;
 let bestTime = localStorage.getItem("bestTime");
 let soundOn = true;
-  // Set default mode to relaxed
-mode = "relaxed";
-statusText.textContent = "Relaxed mode 😌 Pop at your pace!";
+
 // Create small sound pool for fast clicking
 const soundPool = [];
 for (let i = 0; i < 5; i++) {
@@ -374,41 +372,35 @@ if (bestTime) {
 for (let i = 0; i < 64; i++) {
   const bubble = document.createElement("div");
   bubble.classList.add("bubble");
+bubble.addEventListener("click", function () {
+  if (!bubble.classList.contains("popped")) {
+    bubble.classList.add("popped");
 
-  bubble.addEventListener("click", function () {
-    if (!bubble.classList.contains("popped")) {
-      bubble.classList.add("popped");
-     if (soundOn) {
-  const sound = soundPool[soundIndex];
-  sound.currentTime = 0;
-  sound.play().catch(() => {});
-  soundIndex = (soundIndex + 1) % soundPool.length;
-}
-}      
-
-  // Play overlapping clicks
-  const soundClone = popSound.cloneNode();
-  soundClone.volume = 0.6;
-  soundClone.play().catch(() => {
-    console.log("Sound blocked until user interacts with the page.");
-  });
-}
-      poppedCount++;
-
-      if (mode === "timed" && !timerStarted) {
-        startTimer();
-      }
-
-      if (mode === "timed" && poppedCount === 64) {
-        
-        stopTimer();
-      }
-      if (mode === "relaxed" && poppedCount === 64) {
-  overlayMessage.textContent = "All bubbles popped! 🎉";
-  overlay.classList.remove("hidden");
-}
+    // Sound
+    if (soundOn) {
+      const sound = soundPool[soundIndex];
+      sound.currentTime = 0;
+      sound.play().catch(() => {});
+      soundIndex = (soundIndex + 1) % soundPool.length;
     }
-  });
+
+    poppedCount++;
+
+    if (mode === "timed" && !timerStarted) {
+      startTimer();
+    }
+
+    if (mode === "timed" && poppedCount === 64) {
+      stopTimer();
+    }
+
+    if (mode === "relaxed" && poppedCount === 64) {
+      overlayMessage.textContent = "All bubbles popped! 🎉";
+      overlay.classList.remove("hidden");
+    }
+  }
+});
+
 
   grid.appendChild(bubble);
 }
@@ -490,6 +482,9 @@ resetBtn.addEventListener("click", function () {
   playAgainBtn.addEventListener("click", function () {
   overlay.classList.add("hidden");
   relaxedBtn.click();   // re-trigger relaxed mode properly
+});
+  window.addEventListener("load", function () {
+  relaxedBtn.click();
 });
 </script>
 
