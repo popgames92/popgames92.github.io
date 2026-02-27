@@ -285,7 +285,7 @@ body.theme-bubble .theme-active {
   <button id="timedMode">Timed Mode</button>
 </div>
 
-<p id="statusText">Choose a mode to begin 🎮</p>
+<p id="statusText">Relaxed mode 😌 Pop at your pace!</p>
 <p id="timerDisplay"></p>
   <p id="bestTimeDisplay">
   <span id="bestTimeText"></span>
@@ -332,16 +332,19 @@ function setTheme(themeName) {
 
 themeJungle.addEventListener("click", function() {
   setTheme("theme-jungle");
+  resetGame();
 });
 
 themeComic.addEventListener("click", function() {
   setTheme("theme-comic");
+  resetGame();
 });
 
 themeBubble.addEventListener("click", function() {
   setTheme("theme-bubble");
+  resetGame();
 });
-let mode = null;
+let mode = "relaxed";
 let timer = null;
 let startTime = null;
 let poppedCount = 0;
@@ -481,11 +484,10 @@ resetBtn.addEventListener("click", function () {
 });
   playAgainBtn.addEventListener("click", function () {
   overlay.classList.add("hidden");
-  relaxedBtn.click();   // re-trigger relaxed mode properly
+  resetGame();
+  statusText.textContent = "Relaxed mode 😌 Pop at your pace!";
 });
-  window.addEventListener("load", function () {
-  relaxedBtn.click();
-});
+  
 </script>
 
 </body>
