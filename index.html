@@ -211,6 +211,42 @@ body.theme-bubble .theme-active {
   border-radius: 6px;
 }
     /* ========================= */
+/* SIDE ADS BASE */
+/* ========================= */
+
+.side-ad {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 160px;
+  height: 600px;
+  background: #f2f2f2;
+  color: #999;
+  display: none; /* hidden by default */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 8px;
+  font-size: 14px;
+  z-index: 10;
+}
+
+.left-ad {
+  left: 20px;
+}
+
+.right-ad {
+  right: 20px;
+}
+
+.top-ad {
+  margin-top: 6px;
+}
+
+.bottom-ad {
+  margin-bottom: 10px;
+}
+    /* ========================= */
 /* GAME OVERLAY */
 /* ========================= */
 
@@ -269,10 +305,28 @@ body.theme-bubble .theme-active {
   font-size: 14px;
 }  
 }
+    /* ========================= */
+/* DESKTOP AD LAYOUT */
+/* ========================= */
+
+@media (min-width: 1000px) {
+
+  .side-ad {
+    display: flex;
+  }
+
+  .top-ad,
+  .bottom-ad {
+    display: none;
+  }
+
+}
 </style>
 </head>
 <body class="theme-comic">
-
+<div class="side-ad left-ad">Advertisement</div>
+<div class="side-ad right-ad">Advertisement</div>
+  <div class="ad-slot top-ad">Advertisement</div>
 <h1>POP-IT!</h1>
   <div class="theme-select">
   <button id="themeJungle">🌴 Jungle</button>
