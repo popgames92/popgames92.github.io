@@ -406,6 +406,7 @@ let poppedCount = 0;
 let timerStarted = false;
 let bestTime = localStorage.getItem("bestTime");
 let soundOn = true;
+let currentTime = 0;
 
 // Create small sound pool for fast clicking
 const soundPool = [];
@@ -481,18 +482,17 @@ function startTimer() {
   timerStarted = true;
   startTime = Date.now();
 
-  timer = setInterval(function () {
-    const rawTime = (Date.now() - startTime) / 1000;
-    const displayTime = parseFloat(rawTime.toFixed(2));
-    timerDisplay.textContent = "Time: " + displayTime.toFixed(2) + "s";
-  }, 10);
+ timer = setInterval(function () {
+  const rawTime = (Date.now() - startTime) / 1000;
+  currentTime = parseFloat(rawTime.toFixed(2));
+  timerDisplay.textContent = "Time: " + currentTime.toFixed(2) + "s";
+}, 10);
 }
 
 function stopTimer() {
   clearInterval(timer);
 
-  const rawTime = (Date.now() - startTime) / 1000;
-  const finalTime = parseFloat(rawTime.toFixed(2));
+  const finalTime = currentTime;
 
   timerStarted = false;
 
