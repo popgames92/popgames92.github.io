@@ -492,13 +492,13 @@ function stopTimer() {
   clearInterval(timer);
 
   const rawTime = (Date.now() - startTime) / 1000;
-  const finalTime = Math.floor(rawTime * 100) / 100;
+  const finalTime = parseFloat(rawTime.toFixed(2));
 
   timerStarted = false;
 
   if (!bestTime || parseFloat(finalTime) < parseFloat(bestTime)) {
     bestTime = finalTime;
-    localStorage.setItem("bestTime", bestTime);
+localStorage.setItem("bestTime", bestTime);
 
     bestTimeText.textContent = "🏆 Best Time: " + parseFloat(bestTime).toFixed(2) + "s";
 
