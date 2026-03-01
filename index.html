@@ -554,16 +554,20 @@ resetBtn.addEventListener("click", function () {
   statusText.textContent = "Relaxed mode 😌 Pop at your pace!";
 });
 
+  document.addEventListener("DOMContentLoaded", function() {
   const howToPlayBtn = document.getElementById("howToPlayBtn");
-const howToPlayOverlay = document.getElementById("howToPlayOverlay");
-const closeHowToPlayBtn = document.getElementById("closeHowToPlayBtn");
+  const howToPlayOverlay = document.getElementById("howToPlayOverlay");
+  const closeHowToPlayBtn = document.getElementById("closeHowToPlayBtn");
 
-howToPlayBtn.addEventListener("click", () => {
-  howToPlayOverlay.classList.remove("hidden");
-});
+  if (howToPlayBtn && howToPlayOverlay && closeHowToPlayBtn) {
+    howToPlayBtn.addEventListener("click", function() {
+      howToPlayOverlay.classList.remove("hidden");
+    });
 
-closeHowToPlayBtn.addEventListener("click", () => {
-  howToPlayOverlay.classList.add("hidden");
+    closeHowToPlayBtn.addEventListener("click", function() {
+      howToPlayOverlay.classList.add("hidden");
+    });
+  }
 });
 </script>
 <footer style="text-align:center; margin-top:20px;">
