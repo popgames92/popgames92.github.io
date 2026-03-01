@@ -322,25 +322,32 @@ body.theme-bubble .theme-active {
   }
 
 }
-    /* ========================= */
-/* INFO ROW LAYOUT */
-/* ========================= */
-
 /* ========================= */
 /* INFO ROW LAYOUT */
 /* ========================= */
 
 .info-row {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 360px;
+  margin: 6px auto;
   align-items: center;
-  width: 360px;          /* tighter width */
-  margin: 6px auto;      /* center the whole block */
 }
 
-.info-row span,
-.info-row p {
-  margin: 0;
+.info-row:first-of-type {
+  text-align: left;
+}
+
+.info-row:first-of-type p {
+  text-align: right;
+}
+
+.info-row:last-of-type span:first-child {
+  text-align: left;
+}
+
+.info-row:last-of-type span:last-child {
+  text-align: right;
 }
 
 .info-btn {
