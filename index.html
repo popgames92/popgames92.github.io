@@ -322,6 +322,23 @@ body.theme-bubble .theme-active {
   }
 
 }
+    /* ========================= */
+/* INFO ROW LAYOUT */
+/* ========================= */
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 420px;
+  margin: 6px auto;
+  padding: 0 10px;
+}
+
+.info-btn {
+  padding: 4px 10px;
+  font-size: 14px;
+}
 </style>
   <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNGRLH4TDP"></script>
@@ -349,14 +366,16 @@ body.theme-bubble .theme-active {
 </div>
 
 <p id="statusText">Relaxed mode 😌 Pop at your pace!</p>
-<div style="display:flex; justify-content:center; align-items:center; gap:10px; margin:5px 0;">
-  <button id="howToPlayBtn" style="padding:4px 8px; font-size:14px;">How to Play</button>
-  <p id="timerDisplay" style="margin:0;"></p>
+<div class="info-row">
+  <button id="howToPlayBtn" class="info-btn">How to Play</button>
+  <p id="timerDisplay"></p>
 </div>
-  <p id="bestTimeDisplay">
+
+<div class="info-row">
+  <span id="soundToggle" style="cursor:pointer;">🔊</span>
   <span id="bestTimeText"></span>
-  <span id="soundToggle" style="cursor:pointer; margin-left:8px;">🔊</span>
-</p>
+</div>
+  
 <button id="resetBtn">Reset Board</button>
 <div class="grid" id="grid"></div>
   <div id="gameOverlay" class="overlay hidden">
