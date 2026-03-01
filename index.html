@@ -349,7 +349,10 @@ body.theme-bubble .theme-active {
 </div>
 
 <p id="statusText">Relaxed mode 😌 Pop at your pace!</p>
-<p id="timerDisplay"></p>
+<div style="display:flex; justify-content:center; align-items:center; gap:10px; margin:5px 0;">
+  <button id="howToPlayBtn" style="padding:4px 8px; font-size:14px;">How to Play</button>
+  <p id="timerDisplay" style="margin:0;"></p>
+</div>
   <p id="bestTimeDisplay">
   <span id="bestTimeText"></span>
   <span id="soundToggle" style="cursor:pointer; margin-left:8px;">🔊</span>
@@ -550,11 +553,36 @@ resetBtn.addEventListener("click", function () {
   resetGame();
   statusText.textContent = "Relaxed mode 😌 Pop at your pace!";
 });
-  
+
+  const howToPlayBtn = document.getElementById("howToPlayBtn");
+const howToPlayOverlay = document.getElementById("howToPlayOverlay");
+const closeHowToPlayBtn = document.getElementById("closeHowToPlayBtn");
+
+howToPlayBtn.addEventListener("click", () => {
+  howToPlayOverlay.classList.remove("hidden");
+});
+
+closeHowToPlayBtn.addEventListener("click", () => {
+  howToPlayOverlay.classList.add("hidden");
+});
 </script>
 <footer style="text-align:center; margin-top:20px;">
   <a href="privacy.html">Privacy Policy</a> | 
-  <a href="contact.html">Contact</a>
+  <a href="contact.html">Contact</a> | 
+  <a href="terms.html">Terms of Service</a>
 </footer>
+<div id="howToPlayOverlay" class="overlay hidden">
+  <div class="overlay-box">
+    <h2>How to Play</h2>
+    <p>Click on the bubbles to pop them!<br>
+       Relaxed mode: Pop at your own pace.<br>
+       Timed mode: Pop all bubbles as fast as possible!<br>
+       Choose your favorite theme using the buttons above.<br>
+       Track your best time and enjoy the game! 🎉
+    </p>
+    <button id="closeHowToPlayBtn">OK</button>
+  </div>
+</div>
+  
 </body>
 </html>
